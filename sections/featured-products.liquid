@@ -1,68 +1,294 @@
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 font-sans">
-  
-  <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
-    <span class="text-[9px] tracking-[0.4em] uppercase font-black block opacity-60 text-neutral-400">
-      SEASONAL SELECTION
-    </span>
-    <h2 class="text-2xl md:text-3xl font-light tracking-tight text-neutral-900 font-serif">
-      The Micro-Lot Catalog
-    </h2>
-    <p class="text-xs text-neutral-400 font-light max-w-md mx-auto">
-      Light-roast profiles roasted with complete clarity, absolute sweetness, and structured transparency.
-    </p>
+<!-- 1. Hero Block (Clarimento Inspired Full-Width Section) -->
+<section class="relative px-4 md:px-6 pt-4 font-sans">
+  <div class="relative w-full aspect-[21/10] min-h-[460px] md:min-h-[580px] overflow-hidden flex flex-col justify-between p-8 md:p-16 text-white border border-purple-200/10 rounded-sm">
+    
+    <!-- Background image & elegant deep gradient overlay -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1200&auto=format&fit=crop"
+        alt="Clarimento Premium Roast Labs"
+        class="w-full h-full object-cover opacity-90 transition-transform duration-[8s] hover:scale-105"
+        loading="eager"
+      >
+      <!-- Deep purple/violet gradient overlay to map theme colors -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#180A2B]/90 via-[#1E0E35]/70 to-transparent"></div>
+      <div class="absolute inset-0 bg-black/10"></div>
+    </div>
+
+    <!-- Top content (small tag) -->
+    <div class="relative z-10 flex justify-between items-center w-full">
+      <span class="text-[9px] md:text-[10px] tracking-[0.35em] uppercase font-bold text-[#E9D5FF] bg-purple-950/45 px-3 py-1.5 border border-purple-800/30">
+        ● Seoul Specialty Roasters
+      </span>
+      <span class="hidden md:inline-block text-[10px] tracking-[0.2em] font-mono opacity-80 text-white/90">
+        EST. 2026 // BATCH NO. 04
+      </span>
+    </div>
+
+    <!-- Bottom content (Header and buttons) -->
+    <div class="relative z-10 max-w-2xl space-y-6">
+      <div class="space-y-3">
+        <span class="text-xs tracking-[0.35em] uppercase font-bold text-[#D8B4FE] block">
+          clarimento roast science
+        </span>
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.15] font-serif">
+          Where Volatile Florals Bloom.
+        </h1>
+        <p class="text-xs md:text-sm opacity-90 font-light max-w-lg leading-relaxed text-purple-100">
+          Clarimento captures the delicate duality of volcanic soil and meticulous anaerobic fermentation. Pure light roast, high transparency, directly sourced.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 pt-2">
+        <a href="/collections/all" class="px-8 py-4 bg-brandAccent text-white text-xs tracking-[0.2em] uppercase font-bold hover:bg-opacity-90 transition-all shadow-md">
+          Shop Single Origin
+        </a>
+        <a href="/pages/wholesale" class="px-8 py-4 text-xs tracking-[0.2em] uppercase font-bold border border-white/60 text-white hover:bg-white/10 transition-colors">
+          Wholesale Portal
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 2. Brand Statement: Big Bold Minimal Typographic Card -->
+<section class="max-w-4xl mx-auto px-6 text-center space-y-6 py-16 md:py-24 font-sans">
+  <span class="text-[10px] tracking-[0.5em] uppercase font-bold text-brandAccent block">
+    the dualism of craft & parameter
+  </span>
+  <h2 class="text-xl md:text-4xl font-extralight tracking-tight leading-[1.4] text-neutral-800 font-serif">
+    “WE ARE DESIGNERS PURSUING THE MAXIMUM REFRACTIVE CLARITY OF A SINGLE SEED.”
+  </h2>
+  <div class="w-12 h-[2px] mx-auto bg-brandAccent"></div>
+  <p class="text-xs md:text-sm max-w-xl mx-auto opacity-75 leading-relaxed font-light text-brandText">
+    Clarimento explores post-harvest processing as a variable, not an accident. By pairing volcanic elevations above 1,700m with precise temperature-monitored yeast fermentation, we preserve the transparent sweetness of the coffee cherry.
+  </p>
+</section>
+
+<!-- 3. Product Catalog Grid: Premium Cards with Violet Accents -->
+<section class="max-w-7xl mx-auto px-6 space-y-10 font-sans pb-16 md:pb-24">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-neutral-100 pb-4 gap-4">
+    <div>
+      <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-neutral-400 block">
+        Direct Trade Releases
+      </span>
+      <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-neutral-900 mt-1 font-serif">
+        Curated Origin Lots
+      </h3>
+    </div>
+    <a href="/collections/all" class="text-xs font-bold tracking-widest uppercase hover:opacity-80 transition-opacity flex items-center gap-2 text-brandAccent">
+      <span>Browse All Coffee</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
-    {% for product in collections.all.products %}
-      <div class="group cursor-pointer space-y-3 flex flex-col justify-between relative">
-        <div class="aspect-square w-full overflow-hidden border border-neutral-200/25 flex items-center justify-center transition-all duration-300 group-hover:border-neutral-300/60 relative bg-[#FAF9F6]">
+  <!-- 3-Column Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for product in collections.all.products limit: 3 %}
+      <div class="group cursor-pointer flex flex-col justify-between border border-neutral-100 p-5 transition-all duration-300 hover:shadow-lg bg-white rounded-none">
+        
+        <!-- Image box -->
+        <div class="relative aspect-square overflow-hidden bg-stone-50 border border-neutral-50 mb-5">
           {% if product.featured_image %}
-            <img 
-              src="{{ product.featured_image | image_url: width: 600 }}" 
+            <img
+              src="{{ product.featured_image | image_url: width: 600 }}"
               alt="{{ product.title | escape }}"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             >
           {% else %}
-            {{ 'product-3' | placeholder_svg_tag: 'w-full h-full' }}
+            {{ 'product-1' | placeholder_svg_tag: 'w-full h-full' }}
           {% endif %}
+          
+          <!-- Badges -->
+          <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+            <span class="bg-brandAccent text-white text-[9px] font-bold tracking-widest uppercase px-2.5 py-1">
+              {{ product.metafields.custom.process | default: "ANAFROBIC" | split: ' ' | first }}
+            </span>
+            <span class="bg-purple-100 text-purple-900 text-[9px] font-bold tracking-wider px-2 py-0.5 border border-purple-200">
+              {{ product.metafields.custom.variety | default: "Gesha" }}
+            </span>
+          </div>
 
-          <!-- Slide up Add-to-Cart -->
-          <div class="absolute bottom-0 left-0 right-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10">
-            <form action="/cart/add" method="post" enctype="multipart/form-data">
-              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-              <button
-                type="submit"
-                class="w-full py-3 bg-neutral-950/95 hover:bg-neutral-900 text-white text-[9px] uppercase tracking-[0.2em] font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <span>Quick Add</span>
-              </button>
-            </form>
+          <div class="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm text-[10px] font-mono font-medium px-2 py-0.5 shadow-sm">
+            {{ product.metafields.custom.elevation | default: "1,930m" }}
           </div>
         </div>
 
-        <div class="text-center space-y-1.5 pt-2">
-          <h4 class="text-xs md:text-sm font-normal text-neutral-800 tracking-tight transition-colors group-hover:text-neutral-500">
-            <a href="{{ product.url }}">{{ product.title }}</a>
-          </h4>
-          <div class="text-[10px] text-neutral-500 font-mono">
-            {{ product.price | money }} USD
+        <!-- Description -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline gap-2">
+            <h4 class="text-base font-bold tracking-tight text-neutral-900 leading-snug group-hover:underline">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </h4>
+            <span class="text-base font-extrabold text-brandAccent">
+              {{ product.price | money }}
+            </span>
           </div>
+          <p class="text-xs text-neutral-500 leading-normal font-light line-clamp-2">
+            {{ product.description | strip_html | truncate: 120 }}
+          </p>
+
+          <!-- Tasting profile pills -->
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            {% assign notes = product.metafields.custom.tasting_notes | default: "Peach, Lychee, Passionfruit, Honey" | split: ',' %}
+            {% for note in notes %}
+              <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">
+                {{ note | strip }}
+              </span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Footer details -->
+        <div class="border-t border-neutral-100 mt-5 pt-3.5 flex justify-between items-center text-xs text-neutral-500">
+          <span class="font-mono text-[10px]">Filter Profile</span>
+          <a href="{{ product.url }}" class="font-bold uppercase tracking-wider flex items-center gap-1.5 group-hover:translate-x-1 transition-transform text-brandAccent">
+            <span>View Details</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
         </div>
       </div>
     {% else %}
-      {% for i in (1..3) %}
-        <div class="space-y-3">
-          <div class="aspect-square w-full bg-neutral-100 flex items-center justify-center border border-neutral-200/20">
-            {{ 'product-' | append: i | placeholder_svg_tag: 'w-full h-full text-neutral-300' }}
+      <!-- Elegant sample static placeholders matching exactly the curated lots in React when store is empty -->
+      {% comment %} Sample 1 {% endcomment %}
+      <div class="group cursor-pointer flex flex-col justify-between border border-neutral-100 p-5 transition-all duration-300 hover:shadow-lg bg-white rounded-none">
+        <div class="relative aspect-square overflow-hidden bg-stone-50 border border-neutral-50 mb-5">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop" alt="El Paraiso Thermal Shock Gesha" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+            <span class="bg-brandAccent text-white text-[9px] font-bold tracking-widest uppercase px-2.5 py-1">Thermal</span>
+            <span class="bg-purple-100 text-purple-900 text-[9px] font-bold tracking-wider px-2 py-0.5 border border-purple-200">Gesha</span>
           </div>
-          <div class="text-center space-y-1">
-            <h4 class="text-xs md:text-sm font-normal text-neutral-800">Sample Micro-Lot {{ i }}</h4>
-            <div class="text-[10px] text-neutral-500 font-mono">$18.00 USD</div>
+          <div class="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm text-[10px] font-mono font-medium px-2 py-0.5 shadow-sm">1,930m</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline gap-2">
+            <h4 class="text-base font-bold tracking-tight text-neutral-900 leading-snug group-hover:underline">El Paraiso Thermal Shock Gesha</h4>
+            <span class="text-base font-extrabold text-brandAccent">$36.00</span>
+          </div>
+          <p class="text-xs text-neutral-500 leading-normal font-light line-clamp-2">Colombia • Diego Bermudez • Anaerobic fermentation locks in beautiful tropical esters.</p>
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Lychee Fruit</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Raspberry</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">White Chocolate</span>
           </div>
         </div>
-      {% endfor %}
+        <div class="border-t border-neutral-100 mt-5 pt-3.5 flex justify-between items-center text-xs text-neutral-500">
+          <span class="font-mono text-[10px]">Filter Profile</span>
+          <span class="font-bold uppercase tracking-wider flex items-center gap-1.5 text-brandAccent group-hover:translate-x-1 transition-transform">
+            <span>View Details</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </span>
+        </div>
+      </div>
+
+      {% comment %} Sample 2 {% endcomment %}
+      <div class="group cursor-pointer flex flex-col justify-between border border-neutral-100 p-5 transition-all duration-300 hover:shadow-lg bg-white rounded-none">
+        <div class="relative aspect-square overflow-hidden bg-stone-50 border border-neutral-50 mb-5">
+          <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=600&auto=format&fit=crop" alt="Nordic Roast Espresso Blend" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+            <span class="bg-brandAccent text-white text-[9px] font-bold tracking-widest uppercase px-2.5 py-1">Blended</span>
+            <span class="bg-purple-100 text-purple-900 text-[9px] font-bold tracking-wider px-2 py-0.5 border border-purple-200">Heirloom</span>
+          </div>
+          <div class="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm text-[10px] font-mono font-medium px-2 py-0.5 shadow-sm">1,500m+</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline gap-2">
+            <h4 class="text-base font-bold tracking-tight text-neutral-900 leading-snug group-hover:underline">Nordic Roast Espresso Blend</h4>
+            <span class="text-base font-extrabold text-brandAccent">$19.50</span>
+          </div>
+          <p class="text-xs text-neutral-500 leading-normal font-light line-clamp-2">Ethiopia & El Salvador • Balanced sweetness with thick, syrupy body.</p>
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Milk Chocolate</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Orange Zest</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Hazelnut</span>
+          </div>
+        </div>
+        <div class="border-t border-neutral-100 mt-5 pt-3.5 flex justify-between items-center text-xs text-neutral-500">
+          <span class="font-mono text-[10px]">Filter Profile</span>
+          <span class="font-bold uppercase tracking-wider flex items-center gap-1.5 text-brandAccent group-hover:translate-x-1 transition-transform">
+            <span>View Details</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </span>
+        </div>
+      </div>
+
+      {% comment %} Sample 3 {% endcomment %}
+      <div class="group cursor-pointer flex flex-col justify-between border border-neutral-100 p-5 transition-all duration-300 hover:shadow-lg bg-white rounded-none">
+        <div class="relative aspect-square overflow-hidden bg-stone-50 border border-neutral-50 mb-5">
+          <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=600&auto=format&fit=crop" alt="Precision Dripper V1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+            <span class="bg-brandAccent text-white text-[9px] font-bold tracking-widest uppercase px-2.5 py-1">Hand-Blown</span>
+            <span class="bg-purple-100 text-purple-900 text-[9px] font-bold tracking-wider px-2 py-0.5 border border-purple-200">Glass</span>
+          </div>
+          <div class="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm text-[10px] font-mono font-medium px-2 py-0.5 shadow-sm">N/A</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline gap-2">
+            <h4 class="text-base font-bold tracking-tight text-neutral-900 leading-snug group-hover:underline">Clarimento Precision Dripper V1</h4>
+            <span class="text-base font-extrabold text-brandAccent">$45.00</span>
+          </div>
+          <p class="text-xs text-neutral-500 leading-normal font-light line-clamp-2">Bespoke Glass Extraction • Flat-bottom internal geometry optimized for light roasts.</p>
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Even Extraction</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Zero Bypass</span>
+          </div>
+        </div>
+        <div class="border-t border-neutral-100 mt-5 pt-3.5 flex justify-between items-center text-xs text-neutral-500">
+          <span class="font-mono text-[10px]">Brew Equipment</span>
+          <span class="font-bold uppercase tracking-wider flex items-center gap-1.5 text-brandAccent group-hover:translate-x-1 transition-transform">
+            <span>View Details</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </span>
+        </div>
+      </div>
     {% endfor %}
+  </div>
+</section>
+
+<!-- 4. Subscriptions Section (Clarimento Signature) -->
+<section class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center font-sans pb-24">
+  <!-- Left: Image with low-profile frame -->
+  <div class="relative aspect-[4/3] md:aspect-[16/10] overflow-hidden border border-neutral-100">
+    <img
+      src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1000&auto=format&fit=crop"
+      alt="Say/Sey style signature coffee subscription roasting"
+      class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+    >
+    <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm py-1 px-2.5 text-[9px] font-mono tracking-widest text-neutral-800 uppercase border border-neutral-100">
+      ● Clarimento Subscription
+    </div>
+  </div>
+
+  <!-- Right: Content -->
+  <div class="space-y-6 md:pr-6">
+    <div class="space-y-2">
+      <span class="text-[10px] tracking-[0.4em] uppercase font-bold block text-brandAccent">
+        CLARIMENTO SIGNATURE
+      </span>
+      <h3 class="text-2xl md:text-3.5xl font-light tracking-tight text-neutral-900 leading-tight font-serif">
+        정기 구독 서비스
+      </h3>
+    </div>
+    <p class="text-xs md:text-sm text-neutral-500 leading-relaxed font-light text-brandText">
+      전 세계 마이크로 롯 싱글 오리진 생두만을 선별하여 가장 완벽한 라이트 로스트 프로파일로 매달 집 앞까지 신선하게 배송해 드립니다. 세이 커피만의 탁월하고 독창적인 컵 프로파일을 온전히 경험해 보세요.
+    </p>
+    <div class="pt-2">
+      <a href="/collections/all" class="px-6 py-3 text-[10px] tracking-widest uppercase font-bold border border-brandPrimary text-brandPrimary hover:bg-brandPrimary hover:text-white transition-all duration-300 inline-flex items-center gap-2">
+        <span>구독 신청하기</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 

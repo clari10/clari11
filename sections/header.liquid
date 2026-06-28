@@ -1,31 +1,76 @@
-<header class="border-b border-neutral-200/40 bg-[#FAF9F6] sticky top-0 z-50 font-sans">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 md:h-20">
+<header class="sticky top-0 z-40 w-full transition-all duration-300 shadow-sm font-sans bg-white">
+  
+  <!-- Main Header Navigation -->
+  <div class="px-4 md:px-8 py-6 md:py-8 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-neutral-100">
+    
+    <!-- Left / Center-Left: Brand Logo and Navigation Links -->
+    <div class="flex flex-col md:flex-row items-center gap-5 md:gap-10 lg:gap-14 w-full md:w-auto justify-center md:justify-start">
       
-      <!-- Left: Navigation (Hidden on mobile, elegant on desktop) -->
-      <nav class="hidden md:flex items-center space-x-8 text-xs font-medium tracking-widest uppercase">
-        <a href="/" class="hover:text-neutral-500 transition-colors">Catalog</a>
-        <a href="/pages/about" class="hover:text-neutral-500 transition-colors">About</a>
-        <a href="/pages/wholesale" class="hover:text-neutral-500 transition-colors">Wholesale</a>
+      <!-- Brand Logo -->
+      <div class="flex flex-col items-center md:items-start shrink-0">
+        <a href="/" class="text-xl md:text-2xl font-medium tracking-[0.24em] uppercase scale-y-[1.12] origin-center inline-block transition-transform duration-200 hover:scale-y-[1.15] hover:scale-x-[1.01] text-center md:text-left text-brandPrimary font-serif">
+          CLARIMENTO
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex items-center justify-center gap-4 sm:gap-5 md:gap-7 flex-wrap">
+        {% for link in linklists.main-menu.links %}
+          <a href="{{ link.url }}" class="relative text-[10px] md:text-[11px] lg:text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 pb-1 cursor-pointer select-none {% if link.active %}text-brandAccent opacity-100{% else %}text-brandText opacity-55 hover:opacity-100{% endif %}">
+            {{ link.title }}
+            {% if link.active %}
+              <span class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-brandAccent"></span>
+            {% endif %}
+          </a>
+        {% else %}
+          <!-- Fallback links if main-menu doesn't exist -->
+          <a href="/" class="relative text-[10px] md:text-[11px] lg:text-xs font-bold tracking-[0.2em] uppercase text-brandAccent opacity-100 pb-1 cursor-pointer select-none">
+            Home
+            <span class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-brandAccent"></span>
+          </a>
+          <a href="/collections/all" class="relative text-[10px] md:text-[11px] lg:text-xs font-bold tracking-[0.2em] uppercase text-brandText opacity-55 hover:opacity-100 pb-1 cursor-pointer select-none">
+            Shop
+          </a>
+          <a href="/pages/about" class="relative text-[10px] md:text-[11px] lg:text-xs font-bold tracking-[0.2em] uppercase text-brandText opacity-55 hover:opacity-100 pb-1 cursor-pointer select-none">
+            About
+          </a>
+          <a href="/pages/wholesale" class="relative text-[10px] md:text-[11px] lg:text-xs font-bold tracking-[0.2em] uppercase text-brandText opacity-55 hover:opacity-100 pb-1 cursor-pointer select-none">
+            Wholesale
+          </a>
+          <a href="/pages/recipes" class="relative text-[10px] md:text-[11px] lg:text-xs font-bold tracking-[0.2em] uppercase text-brandText opacity-55 hover:opacity-100 pb-1 cursor-pointer select-none">
+            Recipes
+          </a>
+        {% endfor %}
       </nav>
-
-      <!-- Center: Logo / Shop Name -->
-      <div class="flex-1 flex justify-center md:justify-center">
-        <a href="/" class="text-lg font-light tracking-[0.3em] uppercase text-neutral-900 flex items-center gap-2">
-          <span>ONE HALF</span>
-          <span class="text-neutral-400 font-extralight">COFFEE</span>
-        </a>
-      </div>
-
-      <!-- Right: Cart & Utilities -->
-      <div class="flex items-center space-x-6 text-xs uppercase tracking-widest">
-        <a href="/cart" class="flex items-center gap-1.5 hover:text-neutral-500 transition-colors font-medium">
-          <span>Cart</span>
-          <span class="bg-neutral-900 text-white rounded-full text-[9px] w-4 h-4 flex items-center justify-center font-mono font-bold">{{ cart.item_count }}</span>
-        </a>
-      </div>
-
     </div>
+
+    <!-- Right side: Cart and Utilities -->
+    <div class="flex items-center gap-3.5 shrink-0 justify-center w-full md:w-auto">
+      
+      <!-- Cart Icon Trigger -->
+      <a href="/cart" class="relative p-1.5 transition-transform duration-200 hover:scale-105 text-brandPrimary" aria-label="Shopping Cart">
+        <!-- SVG Icon Shopping Bag identical weight and size -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 md:h-5.5 md:w-5.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        
+        <span class="absolute -top-0.5 -right-0.5 flex h-4.5 w-4.5 items-center justify-center rounded-full text-[9px] font-bold shadow-sm border border-white bg-brandAccent text-white">
+          {{ cart.item_count }}
+        </span>
+      </a>
+
+      <!-- Quick Login link -->
+      <a href="/account" class="relative p-1.5 transition-transform duration-200 hover:scale-105 flex items-center gap-1 text-brandPrimary" title="Log In">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 md:h-5.5 md:w-5.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span class="hidden sm:inline text-[10px] font-bold tracking-widest uppercase">Log In</span>
+      </a>
+    </div>
+
   </div>
 </header>
 

@@ -1,61 +1,78 @@
-<footer class="border-t border-neutral-200/50 bg-[#FAF9F6] py-12 md:py-16 font-sans mt-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 text-xs text-neutral-500">
+<footer class="px-8 py-16 md:py-24 border-t border-neutral-100 font-sans bg-white">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-sm leading-relaxed">
+    
+    <!-- Brand statement -->
+    <div class="space-y-4 md:col-span-1">
+      <h3 class="text-lg uppercase tracking-[0.2em] font-bold text-brandPrimary">CLARIMENTO</h3>
+      <p class="text-neutral-600 text-xs max-w-xs font-light">
+        We source specialty coffee beans directly from carbon-conscious micro-lots. Our light, sustainable roasting profile highlights native geographic sugars, floral volatiles, and clean acids.
+      </p>
+      <div class="text-[10px] text-neutral-400">
+        © {{ 'now' | date: "%Y" }} CLARIMENTO COFFEE INC.<br>
+        Powered by Shopify Dawn Engine.
+      </div>
+    </div>
+
+    <!-- Navigation columns -->
+    <div class="space-y-3">
+      <h4 class="text-xs uppercase tracking-widest font-bold text-neutral-400">STORES & COFFEEBARS</h4>
+      <ul class="space-y-3 text-xs text-neutral-600 font-light">
+        <li>
+          <span class="font-semibold block text-neutral-800">Hannam Showroom</span>
+          <span class="opacity-75">79 Yongsan-gu, Seoul</span>
+        </li>
+        <li>
+          <span class="font-semibold block text-neutral-800">Copenhagen Roastery</span>
+          <span class="opacity-75">Nordhavn 21, Denmark</span>
+        </li>
+        <li>
+          <span class="font-semibold block text-neutral-800">Tokyo Laboratory</span>
+          <span class="opacity-75">Shibuya 3-Chome, Tokyo</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="space-y-3">
+      <h4 class="text-xs uppercase tracking-widest font-bold text-neutral-400">INFORMATION</h4>
+      <ul class="space-y-2 text-xs text-neutral-600 font-light">
+        <li><a href="#" class="hover:underline hover:text-brandPrimary">Roasting Schedule</a></li>
+        <li><a href="#" class="hover:underline hover:text-brandPrimary">Sustainability Metrics</a></li>
+        <li><a href="#" class="hover:underline hover:text-brandPrimary">Careers</a></li>
+        <li><a href="#" class="hover:underline hover:text-brandPrimary">Wholesale Partnerships</a></li>
+        <li><a href="#" class="hover:underline hover:text-brandPrimary">Shipping & Refund Policies</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter Signup -->
+    <div class="space-y-4">
+      <h4 class="text-xs uppercase tracking-widest font-bold text-neutral-400">DISCOVER OUR RELEASES</h4>
+      <p class="text-xs text-neutral-600 font-light">
+        Subscribe to receive priority allocations, single-origin drops, and private cupping event invitations.
+      </p>
       
-      <!-- Brand & Mission Statement -->
-      <div class="space-y-4">
-        <h3 class="text-neutral-900 font-bold uppercase tracking-widest text-[10px]">One Half Coffee</h3>
-        <p class="leading-relaxed font-light">
-          A platform for seasonal micro-lot coffees, curated with a clean, light-roast profile to emphasize absolute origin terroir.
-        </p>
+      <form action="/contact#contact_form" method="post" class="relative flex items-center">
+        <input 
+          type="email" 
+          name="contact[email]"
+          placeholder="your.email@domain.com"
+          class="w-full text-xs px-4 py-3 pr-10 border border-brandAccent text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-purple-600 rounded-none bg-white"
+          required
+        >
+        <button type="submit" class="absolute right-3 text-brandAccent hover:opacity-85 transition-colors" aria-label="Submit email">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+      
+      <div class="flex gap-4 pt-2">
+        <a href="#" class="text-xs text-neutral-400 hover:text-brandPrimary">Instagram</a>
+        <a href="#" class="text-xs text-neutral-400 hover:text-brandPrimary">Spotify</a>
+        <a href="#" class="text-xs text-neutral-400 hover:text-brandPrimary">YouTube</a>
       </div>
-
-      <!-- Links -->
-      <div class="space-y-4">
-        <h3 class="text-neutral-900 font-bold uppercase tracking-widest text-[10px]">Explore</h3>
-        <ul class="space-y-2 uppercase tracking-wider text-[10px]">
-          <li><a href="/" class="hover:text-neutral-900 transition-colors">All Coffees</a></li>
-          <li><a href="/pages/about" class="hover:text-neutral-900 transition-colors">Our Roastery</a></li>
-          <li><a href="/pages/wholesale" class="hover:text-neutral-900 transition-colors">Partnerships</a></li>
-        </ul>
-      </div>
-
-      <!-- Info -->
-      <div class="space-y-4">
-        <h3 class="text-neutral-900 font-bold uppercase tracking-widest text-[10px]">Customer Care</h3>
-        <ul class="space-y-2 font-light">
-          <li><a href="#" class="hover:text-neutral-900 transition-colors">Shipping & Delivery</a></li>
-          <li><a href="#" class="hover:text-neutral-900 transition-colors">Brewing Guides</a></li>
-          <li><a href="#" class="hover:text-neutral-900 transition-colors">Contact Support</a></li>
-        </ul>
-      </div>
-
-      <!-- Newsletter -->
-      <div class="space-y-4">
-        <h3 class="text-neutral-900 font-bold uppercase tracking-widest text-[10px]">Sensory Dispatch</h3>
-        <p class="leading-relaxed font-light">
-          Sign up to receive early alerts on dynamic micro-lot drops.
-        </p>
-        <form class="flex gap-2">
-          <input 
-            type="email" 
-            placeholder="Your email address" 
-            class="flex-1 border border-neutral-200 bg-white p-2 text-xs focus:outline-none focus:border-neutral-900 rounded-none font-light"
-            required
-          >
-          <button type="submit" class="bg-neutral-950 text-white px-4 py-2 uppercase tracking-wider text-[10px] font-bold hover:bg-neutral-900 transition-colors">
-            Join
-          </button>
-        </form>
-      </div>
-
     </div>
 
-    <!-- Copyright and bottom branding -->
-    <div class="mt-12 pt-8 border-t border-neutral-200/30 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-neutral-400 font-mono">
-      <span>© {{ 'now' | date: "%Y" }} One Half Coffee. All Rights Reserved.</span>
-      <span>Roasting in Season, Daily.</span>
-    </div>
   </div>
 </footer>
 

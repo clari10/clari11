@@ -14,7 +14,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Assistant:wght@300;400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN for elegant customization -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,12 +23,18 @@
       theme: {
         extend: {
           colors: {
-            brandCream: '#FAF9F6',
-            brandDark: '#171717',
+            brandPrimary: '#1F1235',
+            brandBg: '#FFFFFF',
+            brandAccent: '#7C3AED',
+            brandText: '#2D2240',
+            brandCardBg: '#FAF8FF',
+            brandAnnounce: '#E6E0FA',
+            brandAnnounceText: '#1F1235',
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Assistant', 'Inter', 'sans-serif'],
             serif: ['Playfair Display', 'serif'],
+            mono: ['Fira Code', 'monospace'],
           }
         }
       }
@@ -37,36 +43,45 @@
 
   <style>
     body {
-      background-color: #FAF9F6;
-      color: #171717;
+      background-color: #FFFFFF;
+      color: #2D2240;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
-    /* Hide scrollbars but keep functionality if needed */
     ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.03);
+      background: rgba(31, 18, 53, 0.02);
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.1);
+      background: rgba(124, 58, 237, 0.15);
       border-radius: 99px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(124, 58, 237, 0.3);
     }
   </style>
 </head>
-<body class="font-sans antialiased selection:bg-neutral-900 selection:text-white">
+<body class="font-sans antialiased selection:bg-brandPrimary selection:text-white min-h-screen flex flex-col">
+
+  <!-- Elegant Announcement Bar (Clarimento Style) -->
+  <div class="bg-brandAnnounce text-brandAnnounceText py-2.5 px-4 text-center text-xs tracking-wide font-medium border-b border-purple-200/40">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+      <span class="inline-block animate-pulse text-brandAccent font-bold">●</span>
+      <span>We ship out orders every Tuesday & Wednesday. With the deadline for ordering on Sundays at 18:00 (CET).</span>
+    </div>
+  </div>
 
   {% section 'header' %}
 
-  <main id="MainContent" class="focus:none min-h-screen" role="main" tabindex="-1">
+  <main id="MainContent" class="flex-grow focus:none" role="main" tabindex="-1">
     {{ content_for_layout }}
   </main>
 
   {% section 'footer' %}
 
   <script>
-    // Pure liquid helper handles
     window.theme = {
       strings: {
         addToCart: {{ 'products.product.add_to_cart' | t | json }},

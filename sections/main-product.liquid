@@ -1,163 +1,197 @@
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16 font-sans">
-  {% assign current_variant = product.selected_or_first_available_variant %}
+<div class="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-16 space-y-16 font-sans">
   
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-    
-    <!-- Left column: Image Gallery -->
-    <div class="lg:col-span-7 space-y-6">
-      <div class="aspect-square w-full bg-[#FAF9F6] border border-neutral-200/20 flex items-center justify-center overflow-hidden">
-        {% if product.featured_image %}
-          <img 
-            src="{{ product.featured_image | image_url: width: 1000 }}" 
-            alt="{{ product.title | escape }}"
-            class="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.02]"
-            loading="eager"
-          >
-        {% else %}
-          {{ 'product-1' | placeholder_svg_tag: 'w-full h-full bg-neutral-100' }}
-        {% endif %}
-      </div>
-    </div>
-
-    <!-- Right column: Configuration and Cart Add -->
-    <div class="lg:col-span-5 space-y-8">
-      
-      <!-- Metadata Tag -->
-      <div class="space-y-1">
-        <span class="text-[9px] tracking-[0.3em] uppercase font-bold text-neutral-400 block">
-          {{ product.vendor | default: "SEASONAL MICRO-LOT" }}
-        </span>
-        <h1 class="text-2xl md:text-3xl font-light tracking-tight text-neutral-900 font-serif">
-          {{ product.title }}
-        </h1>
-        <div class="text-lg text-neutral-800 font-mono pt-1">
-          <span id="ProductPrice">{{ current_variant.price | money }}</span>
-        </div>
-      </div>
-
-      <!-- Core Details Grid -->
-      <div class="grid grid-cols-2 gap-y-4 gap-x-6 border-y border-neutral-200/30 py-6 text-xs text-neutral-500">
-        <div>
-          <span class="text-[9px] uppercase font-bold tracking-wider text-neutral-400 block mb-0.5">Origin</span>
-          <span class="text-neutral-900 font-medium">{{ product.metafields.custom.origin | default: "Single Origin" }}</span>
-        </div>
-        <div>
-          <span class="text-[9px] uppercase font-bold tracking-wider text-neutral-400 block mb-0.5">Process</span>
-          <span class="text-neutral-900 font-medium">{{ product.metafields.custom.process | default: "Natural / Washed" }}</span>
-        </div>
-        <div>
-          <span class="text-[9px] uppercase font-bold tracking-wider text-neutral-400 block mb-0.5">Elevation</span>
-          <span class="text-neutral-900 font-medium">{{ product.metafields.custom.elevation | default: "1500m - 1900m" }}</span>
-        </div>
-        <div>
-          <span class="text-[9px] uppercase font-bold tracking-wider text-neutral-400 block mb-0.5">Tasting Profile</span>
-          <span class="text-neutral-900 font-medium">{{ product.metafields.custom.tasting_notes | default: "Peach, Jasmine, Honey" }}</span>
-        </div>
-      </div>
-
-      <!-- Shopify Variant and Add-To-Cart Form -->
-      <form action="/cart/add" method="post" enctype="multipart/form-data" class="space-y-6">
-        <input type="hidden" name="id" value="{{ current_variant.id }}">
-
-        <!-- Option Selectors -->
-        {% unless product.has_only_default_variant %}
-          {% for option in product.options_with_values %}
-            <div class="space-y-2">
-              <label class="text-[9px] tracking-wider uppercase font-bold text-neutral-400 block">
-                {{ option.name }}
-              </label>
-              <div class="flex flex-wrap gap-2">
-                {% for value in option.values %}
-                  <label class="cursor-pointer text-xs font-mono">
-                    <input 
-                      type="radio" 
-                      name="options[{{ option.name }}]" 
-                      value="{{ value | escape }}"
-                      {% if option.selected_value == value %}checked{% endif %}
-                      class="sr-only peer"
-                      onchange="this.form.submit();"
-                    >
-                    <span class="px-4 py-2 border border-neutral-200 block peer-checked:bg-neutral-900 peer-checked:text-white peer-checked:border-neutral-900 hover:border-neutral-400 transition-colors">
-                      {{ value }}
-                    </span>
-                  </label>
-                {% endfor %}
-              </div>
-            </div>
-          {% endfor %}
-        {% endunless %}
-
-        <!-- Quantity Selector -->
-        <div class="space-y-2">
-          <label class="text-[9px] tracking-wider uppercase font-bold text-neutral-400 block">
-            Quantity
-          </label>
-          <div class="flex items-center border border-neutral-200 w-24">
-            <button type="button" onclick="const qty = this.nextElementSibling; if (qty.value > 1) qty.value--;" class="w-8 h-8 text-neutral-500 hover:text-neutral-900 font-mono">-</button>
-            <input type="number" name="quantity" value="1" min="1" class="w-8 text-center text-xs font-mono focus:outline-none border-none bg-transparent">
-            <button type="button" onclick="this.previousElementSibling.value++" class="w-8 h-8 text-neutral-500 hover:text-neutral-900 font-mono">+</button>
-          </div>
-        </div>
-
-        <!-- Add To Cart Trigger -->
-        <button 
-          type="submit" 
-          name="add"
-          {% unless current_variant.available %}disabled{% endunless %}
-          class="w-full py-3.5 bg-neutral-900 text-white text-xs uppercase tracking-[0.2em] font-bold hover:bg-neutral-800 transition-all cursor-pointer flex items-center justify-center gap-2"
-        >
-          {% if current_variant.available %}
-            <span>Add to Bag</span>
-          {% else %}
-            <span>Sold Out</span>
-          {% endif %}
-        </button>
-      </form>
-
-      <!-- Tabs Section -->
-      <div class="space-y-4 pt-4 border-t border-neutral-200/30">
-        <div class="flex border-b border-neutral-200/30 text-xs gap-6">
-          <button onclick="switchTab('profile')" class="pb-2 border-b-2 border-neutral-900 font-bold tab-btn" id="tab-btn-profile">Profile</button>
-          <button onclick="switchTab('brew')" class="pb-2 border-b-2 border-transparent text-neutral-400 tab-btn" id="tab-btn-brew">Brew Guide</button>
-          <button onclick="switchTab('origin')" class="pb-2 border-b-2 border-transparent text-neutral-400 tab-btn" id="tab-btn-origin">Behind the Numbering</button>
-        </div>
-
-        <div class="text-xs text-neutral-500 leading-relaxed font-light min-h-[100px]">
-          <div id="tab-content-profile" class="tab-content space-y-2">
-            <p>{{ product.description }}</p>
-          </div>
-          <div id="tab-content-brew" class="tab-content hidden space-y-2">
-            <p class="font-mono text-[10px] text-neutral-400">ROASTED FOR FILTER EXTRACTION</p>
-            <p>We recommend a 1:16 ratio using soft water at 93°C. Perfect for V60 or April drippers to emphasize delicate floral acidity and maximum cup clarity.</p>
-          </div>
-          <div id="tab-content-origin" class="tab-content hidden space-y-2">
-            <p>Our unique numbering dossier matches seasonal micro-lot sequences with exact batch roasts. Every profile is meticulously documented under full light-style roasting protocols.</p>
-          </div>
-        </div>
-      </div>
-
+  <!-- Breadcrumb and back link -->
+  <div class="flex items-center justify-between border-b border-neutral-100 pb-4">
+    <a href="/collections/all" class="flex items-center gap-2 text-xs uppercase tracking-widest text-neutral-500 hover:text-neutral-950 transition-colors font-bold group">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 group-hover:-translate-x-0.5 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>Back to offerings</span>
+    </a>
+    <div class="hidden sm:flex items-center gap-3 text-[10px] uppercase tracking-widest font-semibold text-neutral-400">
+      <span>Shop</span>
+      <span>/</span>
+      <span class="text-neutral-900 font-bold">{{ product.title }}</span>
     </div>
   </div>
-</section>
 
-<script>
-  function switchTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-    document.querySelectorAll('.tab-btn').forEach(el => {
-      el.classList.remove('border-neutral-900', 'font-bold');
-      el.classList.add('border-transparent', 'text-neutral-400');
-    });
+  <!-- Main product columns -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
     
-    document.getElementById('tab-content-' + tabId).classList.remove('hidden');
-    const activeBtn = document.getElementById('tab-btn-' + tabId);
-    activeBtn.classList.remove('border-transparent', 'text-neutral-400');
-    activeBtn.classList.add('border-neutral-900', 'font-bold');
-  }
-</script>
+    <!-- Left Visual Column -->
+    <div class="lg:col-span-7 space-y-6">
+      <div class="relative aspect-square bg-stone-50 border border-neutral-100 overflow-hidden">
+        {% if product.featured_image %}
+          <img
+            src="{{ product.featured_image | image_url: width: 1000 }}"
+            alt="{{ product.title | escape }}"
+            class="w-full h-full object-cover"
+            id="ProductMainImage"
+          >
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'w-full h-full' }}
+        {% endif %}
+        
+        <!-- Processing Badges -->
+        <div class="absolute top-4 left-4 flex flex-col gap-2">
+          <span class="bg-brandPrimary/90 text-[10px] text-white uppercase font-bold tracking-widest px-3 py-1">
+            {{ product.metafields.custom.process | default: "Anaerobic Thermal Shock" }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Quick specs grid -->
+      <div class="p-4 bg-brandCardBg border border-purple-100 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div>
+          <span class="text-[10px] text-neutral-400 block font-bold uppercase tracking-wider">Variety</span>
+          <span class="text-xs font-semibold text-neutral-800">{{ product.metafields.custom.variety | default: "Gesha / Bourbon" }}</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-neutral-400 block font-bold uppercase tracking-wider">Elevation</span>
+          <span class="text-xs font-semibold text-neutral-800">{{ product.metafields.custom.elevation | default: "1,930m" }}</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-neutral-400 block font-bold uppercase tracking-wider">Producer</span>
+          <span class="text-xs font-semibold text-neutral-800 truncate block max-w-[120px] mx-auto">{{ product.metafields.custom.producer | default: "Diego Bermudez" }}</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-neutral-400 block font-bold uppercase tracking-wider">Origin</span>
+          <span class="text-xs font-semibold text-neutral-800 truncate block max-w-[120px] mx-auto">{{ product.metafields.custom.origin | default: "Colombia, Cauca" | split: ',' | first }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Details Column -->
+    <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-28">
+      
+      <div class="space-y-2">
+        <span class="text-[10px] tracking-[0.3em] uppercase font-bold block text-brandAccent">
+          Single-Origin Micro-Lot
+        </span>
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-normal text-neutral-900 tracking-tight font-serif">
+          {{ product.title }}
+        </h1>
+        <p class="text-xs md:text-sm text-neutral-500 font-light leading-relaxed">
+          {{ product.metafields.custom.subtitle | default: "Colombian micro-lot highlighting volcanic elevations and exquisite yeast ferment." }}
+        </p>
+        <div class="pt-2 text-2xl font-semibold text-neutral-900 font-mono text-brandAccent">
+          {{ product.price | money }}
+        </div>
+      </div>
+
+      <hr class="border-neutral-100">
+
+      <div class="text-xs md:text-sm text-neutral-600 leading-relaxed font-light text-brandText">
+        {{ product.description }}
+      </div>
+
+      <!-- Flavor Notes bubbles -->
+      <div class="space-y-2">
+        <span class="text-[10px] text-neutral-400 block font-bold uppercase tracking-wider">
+          Tasting Profile Indicator
+        </span>
+        <div class="flex flex-wrap gap-1.5">
+          {% assign notes = product.metafields.custom.tasting_notes | default: "Lychee Fruit, Pink Raspberry, Passionfruit, White Chocolate" | split: ',' %}
+          {% for note in notes %}
+            <span class="text-xs bg-white border border-brandAccent text-brandPrimary px-3 py-1.5 font-mono tracking-tight font-semibold">
+              {{ note | strip }}
+            </span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Add to Cart Form -->
+      {% form 'product', product, class: 'space-y-6 pt-2' %}
+        
+        <!-- Sizing selection -->
+        {% if product.variants.size > 1 %}
+          <div class="space-y-2">
+            <label class="text-[10px] text-neutral-400 font-bold uppercase tracking-wider block">
+              Select Variant
+            </label>
+            <select name="id" id="ProductSelect" class="w-full text-xs px-4 py-3 border border-neutral-200 focus:outline-none focus:border-brandAccent rounded-none bg-white">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}>
+                  {{ variant.title }} - {{ variant.price | money }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        {% else %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          
+          <div class="space-y-2">
+            <span class="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">
+              Select Packaging Size
+            </span>
+            <div class="grid grid-cols-2 gap-3">
+              <button type="button" class="py-2.5 px-4 border border-brandPrimary bg-brandPrimary text-white text-xs text-center tracking-wider font-semibold rounded-none">
+                Standard 250g Bag
+              </button>
+              <button type="button" class="py-2.5 px-4 border border-neutral-200 text-neutral-700 bg-transparent text-xs text-center tracking-wider font-semibold rounded-none hover:border-neutral-400">
+                Bulk 1.0kg Bag
+              </button>
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Grind options representation -->
+        <div class="space-y-2">
+          <span class="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">
+            Select Grind Profile
+          </span>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" class="py-2 px-3 border border-brandPrimary bg-brandPrimary text-white text-xs text-left transition-all flex justify-between items-center rounded-none">
+              <span>Whole Beans</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </button>
+            <button type="button" class="py-2 px-3 border border-neutral-200 text-neutral-600 bg-transparent text-xs text-left transition-all flex justify-between items-center rounded-none hover:border-neutral-400">
+              <span>Filter Grind</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <div class="pt-4 flex gap-4">
+          <div class="flex items-center border border-neutral-200">
+            <button type="button" class="px-3 py-2 text-neutral-500 hover:text-neutral-900" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <input type="number" id="Quantity" name="quantity" value="1" min="1" class="w-12 text-center text-xs border-none focus:outline-none bg-white">
+            <button type="button" class="px-3 py-2 text-neutral-500 hover:text-neutral-900" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+          </div>
+
+          <button
+            type="submit"
+            name="add"
+            class="flex-grow bg-brandPrimary text-white font-bold text-xs py-4.5 uppercase tracking-widest hover:bg-neutral-800 transition-all text-center flex items-center justify-center gap-2 rounded-none"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4.5 w-4.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            <span>Add to Cart</span>
+          </button>
+        </div>
+
+      {% endform %}
+
+      <!-- Tab sections like Profile, Brew, Origin -->
+      <div class="border border-neutral-100 bg-brandCardBg p-5 space-y-4">
+        <div class="flex border-b border-neutral-200 pb-2 gap-4 text-xs font-bold tracking-widest uppercase text-neutral-400">
+          <span class="text-brandPrimary border-b-2 border-brandAccent pb-2 cursor-pointer">Sensory Profile</span>
+          <span class="hover:text-brandPrimary cursor-pointer">Brewing Parameters</span>
+        </div>
+        <div class="text-xs text-neutral-600 leading-relaxed font-light space-y-2">
+          <p>This micro-lot highlights raw origin purity. Meticulously roasted on a state-of-the-art fully monitored air roaster to ensure zero convective scorching or bitterness, leaving only pristine origin florals and clean geographic acidity.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
 
 {% schema %}
 {
-  "name": "Product Detail",
+  "name": "Product Details",
   "settings": []
 }
 {% endschema %}
