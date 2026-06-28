@@ -1,0 +1,239 @@
+{%- comment -%}
+  Shopify Dawn Custom Theme Section: main-product.liquid
+  Customized specifically for Clarimento Specialty Roasters.
+  Integrates warm editorial styling, premium product detail selectors, V60 Brew guide, and interactive layout schema.
+{%- endcomment -%}
+
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+
+<section 
+  id="ProductSection-{{ section.id }}" 
+  class="max-w-7xl mx-auto px-6 py-8 md:py-12 font-sans"
+  style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};"
+>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+    
+    <!-- Left Column: Media Showcase (Images) -->
+    <div class="lg:col-span-7 space-y-6">
+      <div class="relative aspect-square bg-neutral-50 overflow-hidden border border-neutral-200/50"
+           style="border-radius: {% if section.settings.rounded_corners %}12px{% else %}0px{% endif %};">
+        
+        {%- if product.featured_media != blank -%}
+          <img
+            src="{{ product.featured_media | image_url: width: 1000 }}"
+            alt="{{ product.featured_media.alt | escape }}"
+            loading="lazy"
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+          />
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-neutral-100' }}
+        {%- endif -%}
+
+        <!-- Badges Overlay -->
+        <div class="absolute top-4 left-4 flex flex-col gap-2">
+          {%- if product.metafields.custom.process != blank -%}
+            <span class="bg-neutral-900/90 text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-sm">
+              {{ product.metafields.custom.process }}
+            </span>
+          {%- endif -%}
+          {%- if product.metafields.custom.roast_level != blank -%}
+            <span class="bg-amber-100 text-amber-900 text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-sm border border-amber-200">
+              Roast: {{ product.metafields.custom.roast_level }}
+            </span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Terroir quick facts grid -->
+      <div class="p-4 bg-stone-50 border border-neutral-200/40 rounded-sm grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div>
+          <span class="text-[10px] text-neutral-400 block font-bold uppercase">Variety</span>
+          <span class="text-xs font-semibold text-neutral-800">
+            {{ product.metafields.custom.variety | default: "Pink Bourbon" }}
+          </span>
+        </div>
+        <div>
+          <span class="text-[10px] text-neutral-400 block font-bold uppercase">Altitude</span>
+          <span class="text-xs font-semibold text-neutral-800">
+            {{ product.metafields.custom.altitude | default: "1,750m - 1,850m" }}
+          </span>
+        </div>
+        <div>
+          <span class="text-[10px] text-neutral-400 block font-bold uppercase">Producer</span>
+          <span class="text-xs font-semibold text-neutral-800 truncate block max-w-[120px] mx-auto">
+            {{ product.metafields.custom.producer | default: "Rodrigo Sanchez" }}
+          </span>
+        </div>
+        <div>
+          <span class="text-[10px] text-neutral-400 block font-bold uppercase">Origin</span>
+          <span class="text-xs font-semibold text-neutral-800 truncate block max-w-[120px] mx-auto">
+            {{ product.metafields.custom.origin | default: "Colombia, Huila" }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Product Purchasing & Specs -->
+    <div class="lg:col-span-5 space-y-8">
+      
+      <!-- Meta & Titles -->
+      <div class="space-y-2">
+        <div class="flex items-center gap-1.5">
+          <span class="text-[10px] tracking-[0.3em] uppercase font-bold" style="color: {{ section.settings.accent_color }};">
+            single-origin organic
+          </span>
+          <span class="h-1 w-1 rounded-full bg-neutral-300"></span>
+          <span class="text-[10px] tracking-[0.1em] text-neutral-500 font-mono font-bold">100% Arabica</span>
+        </div>
+        <h1 class="text-2xl md:text-3.5xl font-bold tracking-tight text-neutral-900 leading-tight">
+          {{ product.title }}
+        </h1>
+        {%- if product.metafields.custom.subtitle != blank -%}
+          <p class="text-sm opacity-85 leading-normal">{{ product.metafields.custom.subtitle }}</p>
+        {%- endif -%}
+        
+        <div class="flex items-baseline gap-2 pt-2">
+          <span class="text-2xl font-black text-neutral-900" id="ProductPrice-{{ section.id }}">
+            {{ product.selected_or_first_available_variant.price | money }}
+          </span>
+        </div>
+      </div>
+
+      <hr class="border-neutral-200/50" />
+
+      <!-- Description -->
+      <div class="text-xs md:text-sm text-neutral-600 leading-relaxed font-sans font-light">
+        {{ product.description }}
+      </div>
+
+      <!-- Tasting Notes Indicators -->
+      <div class="space-y-2">
+        <span class="text-[10px] text-neutral-400 block font-bold uppercase tracking-wider">
+          Tasting Profile Indicators
+        </span>
+        <div class="flex flex-wrap gap-2">
+          {%- assign notes = product.metafields.custom.tasting_notes.value -%}
+          {%- if notes != blank -%}
+            {%- for note in notes -%}
+              <span class="text-xs bg-white border px-3 py-1.5 font-mono tracking-tight shadow-xs font-semibold"
+                    style="border-color: {{ section.settings.accent_color }}; color: {{ section.settings.text_color }}; border-radius: {% if section.settings.rounded_corners %}999px{% else %}0px{% endif %};">
+                {{ note }}
+              </span>
+            {%- endfor -%}
+          {%- else -%}
+            <!-- Fallback notes -->
+            <span class="text-xs bg-white border border-stone-200 px-3 py-1.5 font-mono"
+                  style="border-radius: {% if section.settings.rounded_corners %}999px{% else %}0px{% endif %};">Peach</span>
+            <span class="text-xs bg-white border border-stone-200 px-3 py-1.5 font-mono"
+                  style="border-radius: {% if section.settings.rounded_corners %}999px{% else %}0px{% endif %};">Bergamot</span>
+            <span class="text-xs bg-white border border-stone-200 px-3 py-1.5 font-mono"
+                  style="border-radius: {% if section.settings.rounded_corners %}999px{% else %}0px{% endif %};">Earl Grey</span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Purchase Form (Shopify standard form integration) -->
+      {%- form 'product', product, id: 'product-form', class: 'space-y-6' -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        <!-- Packaging bag sizes / variant selectors -->
+        {%- unless product.has_only_default_variant -%}
+          <div class="space-y-4">
+            {%- for option in product.options_with_values -%}
+              <div class="space-y-2">
+                <label class="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">
+                  Select {{ option.name }}
+                </label>
+                <div class="grid grid-cols-2 gap-3">
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="py-2 px-4 border text-xs text-center tracking-wider transition-all font-semibold {% if option.selected_value == value %}border-neutral-900 bg-neutral-900 text-white{% else %}border-neutral-200 hover:border-neutral-400 text-neutral-700{% endif %}"
+                      style="border-radius: 4px;"
+                      onclick="selectVariantOption('{{ option.position }}', '{{ value | escape }}')"
+                    >
+                      {{ value }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+
+        <!-- Add to cart button -->
+        <div class="flex gap-3 pt-2">
+          <div class="flex items-center border border-neutral-300 rounded-sm bg-stone-50 overflow-hidden text-sm">
+            <button type="button" class="px-3 py-3 hover:bg-neutral-200/40" onclick="updateQty(-1)">-</button>
+            <input type="number" name="quantity" id="quantity-{{ section.id }}" value="1" min="1" class="w-12 text-center bg-transparent border-none font-mono font-bold" />
+            <button type="button" class="px-3 py-3 hover:bg-neutral-200/40" onclick="updateQty(1)">+</button>
+          </div>
+
+          <button
+            type="submit"
+            name="add"
+            class="flex-1 flex items-center justify-center gap-2 font-bold uppercase tracking-widest text-xs py-3 px-6 hover:opacity-95 shadow-md transition-all"
+            style="background-color: {{ section.settings.primary_button_color }}; color: {{ section.settings.bg_color }}; border-radius: {% if section.settings.rounded_corners %}999px{% else %}0px{% endif %};"
+          >
+            Add to Cart • {{ product.selected_or_first_available_variant.price | money }}
+          </button>
+        </div>
+      {%- endform -%}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Clarimento Main Product",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Theme Styling Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#F5EFE6"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#262522"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#9A7B56"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_color",
+      "label": "Button Color",
+      "default": "#262522"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded_corners",
+      "label": "Enable Rounded Corners (Pill Style)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_terroir",
+      "label": "Show Terroir Meta Box",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

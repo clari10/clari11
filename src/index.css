@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Assistant", "Jost", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Assistant", "Playfair Display", ui-serif, Georgia, serif;
+  --font-mono: "Assistant", "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Subtle custom scrollbar styles for elegant minimalist panels */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Base resets & transitions */
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Assistant", sans-serif !important;
+}
+
+* {
+  font-family: "Assistant", sans-serif !important;
+}
+
+button {
+  cursor: pointer;
+}
+

@@ -1,0 +1,6 @@
+{
+  "name": "Clarimento Specialty Coffee",
+  "description": "Premium specialty coffee experience styled in a customizable Shopify Dawn theme, featuring editorial homepage layouts, detailed coffee bean products with interactive selectors, and a wholesale inquiry portal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
