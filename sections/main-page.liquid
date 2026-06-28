@@ -1,0 +1,22 @@
+<div class="max-w-4xl mx-auto px-6 py-16 md:py-24 font-sans">
+  <div class="space-y-6 text-center max-w-2xl mx-auto mb-12">
+    <span class="text-[10px] tracking-[0.4em] uppercase font-bold text-brandAccent block">
+      Clarimento Information
+    </span>
+    <h1 class="text-3xl md:text-5xl font-light tracking-tight text-neutral-900 font-serif leading-tight">
+      {{ page.title }}
+    </h1>
+    <div class="w-12 h-[2px] mx-auto bg-brandAccent"></div>
+  </div>
+
+  <div class="prose prose-purple max-w-none text-xs md:text-sm text-neutral-600 leading-relaxed font-light text-brandText">
+    {{ page.content }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,197 @@
+<div class="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20 font-sans space-y-12">
+  
+  <!-- Header -->
+  <div class="border-b border-neutral-100 pb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+    <div class="space-y-2">
+      <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-brandAccent block">
+        Direct Trade Releases
+      </span>
+      <h1 class="text-3xl md:text-4.5xl font-light tracking-tight text-neutral-900 font-serif">
+        {{ collection.title | default: "All Offerings" }}
+      </h1>
+      {% if collection.description != blank %}
+        <p class="text-xs md:text-sm text-neutral-500 max-w-xl font-light leading-relaxed">
+          {{ collection.description }}
+        </p>
+      {% endif %}
+    </div>
+    
+    <div class="flex items-center gap-2 text-xs text-neutral-500">
+      <span class="font-mono text-[10px] uppercase">Sorted By: Featured</span>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for product in collection.products %}
+      <div class="group cursor-pointer flex flex-col justify-between border border-neutral-100 p-5 transition-all duration-300 hover:shadow-lg bg-white rounded-none">
+        
+        <!-- Image box -->
+        <div class="relative aspect-square overflow-hidden bg-stone-50 border border-neutral-50 mb-5">
+          {% if product.featured_image %}
+            <img
+              src="{{ product.featured_image | image_url: width: 600 }}"
+              alt="{{ product.title | escape }}"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            >
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'w-full h-full' }}
+          {% endif %}
+          
+          <!-- Badges -->
+          <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+            <span class="bg-brandAccent text-white text-[9px] font-bold tracking-widest uppercase px-2.5 py-1">
+              {{ product.metafields.custom.process | default: "ANAEBROBIC" | split: ' ' | first }}
+            </span>
+            <span class="bg-purple-100 text-purple-900 text-[9px] font-bold tracking-wider px-2 py-0.5 border border-purple-200">
+              {{ product.metafields.custom.variety | default: "Gesha" }}
+            </span>
+          </div>
+
+          <div class="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm text-[10px] font-mono font-medium px-2 py-0.5 shadow-sm">
+            {{ product.metafields.custom.elevation | default: "1,930m" }}
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline gap-2">
+            <h2 class="text-base font-bold tracking-tight text-neutral-900 leading-snug group-hover:underline">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </h2>
+            <span class="text-base font-extrabold text-brandAccent">
+              {{ product.price | money }}
+            </span>
+          </div>
+          <p class="text-xs text-neutral-500 leading-normal font-light line-clamp-2">
+            {{ product.description | strip_html | truncate: 120 }}
+          </p>
+
+          <!-- Tasting profile pills -->
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            {% assign notes = product.metafields.custom.tasting_notes | default: "Peach, Lychee, Passionfruit, Honey" | split: ',' %}
+            {% for note in notes %}
+              <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">
+                {{ note | strip }}
+              </span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Footer details -->
+        <div class="border-t border-neutral-100 mt-5 pt-3.5 flex justify-between items-center text-xs text-neutral-500">
+          <span class="font-mono text-[10px]">Filter Profile</span>
+          <a href="{{ product.url }}" class="font-bold uppercase tracking-wider flex items-center gap-1.5 group-hover:translate-x-1 transition-transform text-brandAccent">
+            <span>View Details</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <!-- Static placeholders if collection is empty -->
+      {% comment %} Sample 1 {% endcomment %}
+      <div class="group cursor-pointer flex flex-col justify-between border border-neutral-100 p-5 transition-all duration-300 hover:shadow-lg bg-white rounded-none">
+        <div class="relative aspect-square overflow-hidden bg-stone-50 border border-neutral-50 mb-5">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop" alt="El Paraiso Thermal Shock Gesha" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+            <span class="bg-brandAccent text-white text-[9px] font-bold tracking-widest uppercase px-2.5 py-1">Thermal</span>
+            <span class="bg-purple-100 text-purple-900 text-[9px] font-bold tracking-wider px-2 py-0.5 border border-purple-200">Gesha</span>
+          </div>
+          <div class="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm text-[10px] font-mono font-medium px-2 py-0.5 shadow-sm">1,930m</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline gap-2">
+            <h2 class="text-base font-bold tracking-tight text-neutral-900 leading-snug group-hover:underline">El Paraiso Thermal Shock Gesha</h2>
+            <span class="text-base font-extrabold text-brandAccent">$36.00</span>
+          </div>
+          <p class="text-xs text-neutral-500 leading-normal font-light line-clamp-2">Colombia • Diego Bermudez • Anaerobic fermentation locks in beautiful tropical esters.</p>
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Lychee Fruit</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Raspberry</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">White Chocolate</span>
+          </div>
+        </div>
+        <div class="border-t border-neutral-100 mt-5 pt-3.5 flex justify-between items-center text-xs text-neutral-500">
+          <span class="font-mono text-[10px]">Filter Profile</span>
+          <span class="font-bold uppercase tracking-wider flex items-center gap-1.5 text-brandAccent">
+            <span>View Details</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </span>
+        </div>
+      </div>
+
+      {% comment %} Sample 2 {% endcomment %}
+      <div class="group cursor-pointer flex flex-col justify-between border border-neutral-100 p-5 transition-all duration-300 hover:shadow-lg bg-white rounded-none">
+        <div class="relative aspect-square overflow-hidden bg-stone-50 border border-neutral-50 mb-5">
+          <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=600&auto=format&fit=crop" alt="Nordic Roast Espresso Blend" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+            <span class="bg-brandAccent text-white text-[9px] font-bold tracking-widest uppercase px-2.5 py-1">Blended</span>
+            <span class="bg-purple-100 text-purple-900 text-[9px] font-bold tracking-wider px-2 py-0.5 border border-purple-200">Heirloom</span>
+          </div>
+          <div class="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm text-[10px] font-mono font-medium px-2 py-0.5 shadow-sm">1,500m+</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline gap-2">
+            <h2 class="text-base font-bold tracking-tight text-neutral-900 leading-snug group-hover:underline">Nordic Roast Espresso Blend</h2>
+            <span class="text-base font-extrabold text-brandAccent">$19.50</span>
+          </div>
+          <p class="text-xs text-neutral-500 leading-normal font-light line-clamp-2">Ethiopia & El Salvador • Balanced sweetness with thick, syrupy body.</p>
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Milk Chocolate</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Orange Zest</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Hazelnut</span>
+          </div>
+        </div>
+        <div class="border-t border-neutral-100 mt-5 pt-3.5 flex justify-between items-center text-xs text-neutral-500">
+          <span class="font-mono text-[10px]">Filter Profile</span>
+          <span class="font-bold uppercase tracking-wider flex items-center gap-1.5 text-brandAccent">
+            <span>View Details</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </span>
+        </div>
+      </div>
+
+      {% comment %} Sample 3 {% endcomment %}
+      <div class="group cursor-pointer flex flex-col justify-between border border-neutral-100 p-5 transition-all duration-300 hover:shadow-lg bg-white rounded-none">
+        <div class="relative aspect-square overflow-hidden bg-stone-50 border border-neutral-50 mb-5">
+          <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=600&auto=format&fit=crop" alt="Precision Dripper V1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+            <span class="bg-brandAccent text-white text-[9px] font-bold tracking-widest uppercase px-2.5 py-1">Hand-Blown</span>
+            <span class="bg-purple-100 text-purple-900 text-[9px] font-bold tracking-wider px-2 py-0.5 border border-purple-200">Glass</span>
+          </div>
+          <div class="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm text-[10px] font-mono font-medium px-2 py-0.5 shadow-sm">N/A</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between items-baseline gap-2">
+            <h2 class="text-base font-bold tracking-tight text-neutral-900 leading-snug group-hover:underline">Clarimento Precision Dripper V1</h2>
+            <span class="text-base font-extrabold text-brandAccent">$45.00</span>
+          </div>
+          <p class="text-xs text-neutral-500 leading-normal font-light line-clamp-2">Bespoke Glass Extraction • Flat-bottom internal geometry optimized for light roasts.</p>
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Even Extraction</span>
+            <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 font-mono border border-purple-100">Zero Bypass</span>
+          </div>
+        </div>
+        <div class="border-t border-neutral-100 mt-5 pt-3.5 flex justify-between items-center text-xs text-neutral-500">
+          <span class="font-mono text-[10px]">Brew Equipment</span>
+          <span class="font-bold uppercase tracking-wider flex items-center gap-1.5 text-brandAccent">
+            <span>View Details</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "settings": []
+}
+{% endschema %}
