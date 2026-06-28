@@ -1,0 +1,74 @@
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 font-sans border-t border-neutral-100">
+  
+  <!-- Section Title -->
+  <div class="text-center max-w-2xl mx-auto space-y-2 mb-12">
+    <span class="text-[9px] tracking-[0.4em] uppercase font-black block opacity-60 text-neutral-400">
+      SENSORY ALIGNMENT
+    </span>
+    <h3 class="text-xl font-light tracking-tight text-neutral-900 font-serif">
+      Related Offerings
+    </h3>
+    <p class="text-xs text-neutral-400 font-light max-w-md mx-auto">
+      Discover other seasonal micro-lots with similar pristine profiles.
+    </p>
+  </div>
+
+  <!-- Related Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
+    {% assign count = 0 %}
+    {% for related_product in collections.all.products %}
+      {% if related_product.id != product.id and count < 3 %}
+        {% assign count = count | plus: 1 %}
+        
+        <div class="group cursor-pointer space-y-3 flex flex-col justify-between relative">
+          <!-- Image Container with hover transition -->
+          <div class="aspect-square w-full overflow-hidden border border-neutral-200/25 flex items-center justify-center transition-all duration-300 group-hover:border-neutral-300/60 relative bg-[#FAF9F6]">
+            {% if related_product.featured_image %}
+              <img 
+                src="{{ related_product.featured_image | image_url: width: 600 }}" 
+                alt="{{ related_product.title | escape }}"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+                loading="lazy"
+              >
+            {% else %}
+              {{ 'product-2' | placeholder_svg_tag: 'w-full h-full' }}
+            {% endif %}
+
+            <!-- Hover Quick Add / Explore Button (One Half Style) -->
+            <div class="absolute bottom-0 left-0 right-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10">
+              <form action="/cart/add" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ related_product.selected_or_first_available_variant.id }}">
+                <button
+                  type="submit"
+                  class="w-full py-3 bg-neutral-950/95 hover:bg-neutral-900 text-white text-[9px] uppercase tracking-[0.2em] font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <span>Quick Add</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Description Block -->
+          <div class="text-center space-y-1.5 pt-2">
+            <h4 class="text-xs md:text-sm font-normal text-neutral-800 tracking-tight transition-colors group-hover:text-neutral-500">
+              <a href="{{ related_product.url }}">{{ related_product.title }}</a>
+            </h4>
+
+            <div class="text-[10px] text-neutral-500 font-mono">
+              {{ related_product.price | money }} USD
+            </div>
+          </div>
+        </div>
+
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Related Products",
+  "settings": [],
+  "templates": ["product"]
+}
+{% endschema %}

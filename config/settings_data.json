@@ -1,0 +1,21 @@
+{
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    }
+  },
+  "presets": {
+    "Default": {
+      "background": "#FAF9F6",
+      "text": "#171717",
+      "accent": "#D97706"
+    }
+  }
+}

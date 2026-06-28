@@ -1,0 +1,163 @@
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16 font-sans">
+  {% assign current_variant = product.selected_or_first_available_variant %}
+  
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+    
+    <!-- Left column: Image Gallery -->
+    <div class="lg:col-span-7 space-y-6">
+      <div class="aspect-square w-full bg-[#FAF9F6] border border-neutral-200/20 flex items-center justify-center overflow-hidden">
+        {% if product.featured_image %}
+          <img 
+            src="{{ product.featured_image | image_url: width: 1000 }}" 
+            alt="{{ product.title | escape }}"
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+            loading="eager"
+          >
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'w-full h-full bg-neutral-100' }}
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Right column: Configuration and Cart Add -->
+    <div class="lg:col-span-5 space-y-8">
+      
+      <!-- Metadata Tag -->
+      <div class="space-y-1">
+        <span class="text-[9px] tracking-[0.3em] uppercase font-bold text-neutral-400 block">
+          {{ product.vendor | default: "SEASONAL MICRO-LOT" }}
+        </span>
+        <h1 class="text-2xl md:text-3xl font-light tracking-tight text-neutral-900 font-serif">
+          {{ product.title }}
+        </h1>
+        <div class="text-lg text-neutral-800 font-mono pt-1">
+          <span id="ProductPrice">{{ current_variant.price | money }}</span>
+        </div>
+      </div>
+
+      <!-- Core Details Grid -->
+      <div class="grid grid-cols-2 gap-y-4 gap-x-6 border-y border-neutral-200/30 py-6 text-xs text-neutral-500">
+        <div>
+          <span class="text-[9px] uppercase font-bold tracking-wider text-neutral-400 block mb-0.5">Origin</span>
+          <span class="text-neutral-900 font-medium">{{ product.metafields.custom.origin | default: "Single Origin" }}</span>
+        </div>
+        <div>
+          <span class="text-[9px] uppercase font-bold tracking-wider text-neutral-400 block mb-0.5">Process</span>
+          <span class="text-neutral-900 font-medium">{{ product.metafields.custom.process | default: "Natural / Washed" }}</span>
+        </div>
+        <div>
+          <span class="text-[9px] uppercase font-bold tracking-wider text-neutral-400 block mb-0.5">Elevation</span>
+          <span class="text-neutral-900 font-medium">{{ product.metafields.custom.elevation | default: "1500m - 1900m" }}</span>
+        </div>
+        <div>
+          <span class="text-[9px] uppercase font-bold tracking-wider text-neutral-400 block mb-0.5">Tasting Profile</span>
+          <span class="text-neutral-900 font-medium">{{ product.metafields.custom.tasting_notes | default: "Peach, Jasmine, Honey" }}</span>
+        </div>
+      </div>
+
+      <!-- Shopify Variant and Add-To-Cart Form -->
+      <form action="/cart/add" method="post" enctype="multipart/form-data" class="space-y-6">
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+        <!-- Option Selectors -->
+        {% unless product.has_only_default_variant %}
+          {% for option in product.options_with_values %}
+            <div class="space-y-2">
+              <label class="text-[9px] tracking-wider uppercase font-bold text-neutral-400 block">
+                {{ option.name }}
+              </label>
+              <div class="flex flex-wrap gap-2">
+                {% for value in option.values %}
+                  <label class="cursor-pointer text-xs font-mono">
+                    <input 
+                      type="radio" 
+                      name="options[{{ option.name }}]" 
+                      value="{{ value | escape }}"
+                      {% if option.selected_value == value %}checked{% endif %}
+                      class="sr-only peer"
+                      onchange="this.form.submit();"
+                    >
+                    <span class="px-4 py-2 border border-neutral-200 block peer-checked:bg-neutral-900 peer-checked:text-white peer-checked:border-neutral-900 hover:border-neutral-400 transition-colors">
+                      {{ value }}
+                    </span>
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        {% endunless %}
+
+        <!-- Quantity Selector -->
+        <div class="space-y-2">
+          <label class="text-[9px] tracking-wider uppercase font-bold text-neutral-400 block">
+            Quantity
+          </label>
+          <div class="flex items-center border border-neutral-200 w-24">
+            <button type="button" onclick="const qty = this.nextElementSibling; if (qty.value > 1) qty.value--;" class="w-8 h-8 text-neutral-500 hover:text-neutral-900 font-mono">-</button>
+            <input type="number" name="quantity" value="1" min="1" class="w-8 text-center text-xs font-mono focus:outline-none border-none bg-transparent">
+            <button type="button" onclick="this.previousElementSibling.value++" class="w-8 h-8 text-neutral-500 hover:text-neutral-900 font-mono">+</button>
+          </div>
+        </div>
+
+        <!-- Add To Cart Trigger -->
+        <button 
+          type="submit" 
+          name="add"
+          {% unless current_variant.available %}disabled{% endunless %}
+          class="w-full py-3.5 bg-neutral-900 text-white text-xs uppercase tracking-[0.2em] font-bold hover:bg-neutral-800 transition-all cursor-pointer flex items-center justify-center gap-2"
+        >
+          {% if current_variant.available %}
+            <span>Add to Bag</span>
+          {% else %}
+            <span>Sold Out</span>
+          {% endif %}
+        </button>
+      </form>
+
+      <!-- Tabs Section -->
+      <div class="space-y-4 pt-4 border-t border-neutral-200/30">
+        <div class="flex border-b border-neutral-200/30 text-xs gap-6">
+          <button onclick="switchTab('profile')" class="pb-2 border-b-2 border-neutral-900 font-bold tab-btn" id="tab-btn-profile">Profile</button>
+          <button onclick="switchTab('brew')" class="pb-2 border-b-2 border-transparent text-neutral-400 tab-btn" id="tab-btn-brew">Brew Guide</button>
+          <button onclick="switchTab('origin')" class="pb-2 border-b-2 border-transparent text-neutral-400 tab-btn" id="tab-btn-origin">Behind the Numbering</button>
+        </div>
+
+        <div class="text-xs text-neutral-500 leading-relaxed font-light min-h-[100px]">
+          <div id="tab-content-profile" class="tab-content space-y-2">
+            <p>{{ product.description }}</p>
+          </div>
+          <div id="tab-content-brew" class="tab-content hidden space-y-2">
+            <p class="font-mono text-[10px] text-neutral-400">ROASTED FOR FILTER EXTRACTION</p>
+            <p>We recommend a 1:16 ratio using soft water at 93°C. Perfect for V60 or April drippers to emphasize delicate floral acidity and maximum cup clarity.</p>
+          </div>
+          <div id="tab-content-origin" class="tab-content hidden space-y-2">
+            <p>Our unique numbering dossier matches seasonal micro-lot sequences with exact batch roasts. Every profile is meticulously documented under full light-style roasting protocols.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.tab-btn').forEach(el => {
+      el.classList.remove('border-neutral-900', 'font-bold');
+      el.classList.add('border-transparent', 'text-neutral-400');
+    });
+    
+    document.getElementById('tab-content-' + tabId).classList.remove('hidden');
+    const activeBtn = document.getElementById('tab-btn-' + tabId);
+    activeBtn.classList.remove('border-transparent', 'text-neutral-400');
+    activeBtn.classList.add('border-neutral-900', 'font-bold');
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product Detail",
+  "settings": []
+}
+{% endschema %}

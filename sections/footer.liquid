@@ -1,0 +1,67 @@
+<footer class="border-t border-neutral-200/50 bg-[#FAF9F6] py-12 md:py-16 font-sans mt-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 text-xs text-neutral-500">
+      
+      <!-- Brand & Mission Statement -->
+      <div class="space-y-4">
+        <h3 class="text-neutral-900 font-bold uppercase tracking-widest text-[10px]">One Half Coffee</h3>
+        <p class="leading-relaxed font-light">
+          A platform for seasonal micro-lot coffees, curated with a clean, light-roast profile to emphasize absolute origin terroir.
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div class="space-y-4">
+        <h3 class="text-neutral-900 font-bold uppercase tracking-widest text-[10px]">Explore</h3>
+        <ul class="space-y-2 uppercase tracking-wider text-[10px]">
+          <li><a href="/" class="hover:text-neutral-900 transition-colors">All Coffees</a></li>
+          <li><a href="/pages/about" class="hover:text-neutral-900 transition-colors">Our Roastery</a></li>
+          <li><a href="/pages/wholesale" class="hover:text-neutral-900 transition-colors">Partnerships</a></li>
+        </ul>
+      </div>
+
+      <!-- Info -->
+      <div class="space-y-4">
+        <h3 class="text-neutral-900 font-bold uppercase tracking-widest text-[10px]">Customer Care</h3>
+        <ul class="space-y-2 font-light">
+          <li><a href="#" class="hover:text-neutral-900 transition-colors">Shipping & Delivery</a></li>
+          <li><a href="#" class="hover:text-neutral-900 transition-colors">Brewing Guides</a></li>
+          <li><a href="#" class="hover:text-neutral-900 transition-colors">Contact Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="space-y-4">
+        <h3 class="text-neutral-900 font-bold uppercase tracking-widest text-[10px]">Sensory Dispatch</h3>
+        <p class="leading-relaxed font-light">
+          Sign up to receive early alerts on dynamic micro-lot drops.
+        </p>
+        <form class="flex gap-2">
+          <input 
+            type="email" 
+            placeholder="Your email address" 
+            class="flex-1 border border-neutral-200 bg-white p-2 text-xs focus:outline-none focus:border-neutral-900 rounded-none font-light"
+            required
+          >
+          <button type="submit" class="bg-neutral-950 text-white px-4 py-2 uppercase tracking-wider text-[10px] font-bold hover:bg-neutral-900 transition-colors">
+            Join
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Copyright and bottom branding -->
+    <div class="mt-12 pt-8 border-t border-neutral-200/30 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-neutral-400 font-mono">
+      <span>© {{ 'now' | date: "%Y" }} One Half Coffee. All Rights Reserved.</span>
+      <span>Roasting in Season, Daily.</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}
